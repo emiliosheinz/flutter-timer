@@ -1,5 +1,5 @@
-formatToTimerString(Stopwatch stopwatch) {
-  return Duration(milliseconds: stopwatch.elapsedMilliseconds)
+formatToTimerString(int ms) {
+  return Duration(milliseconds: ms)
       .toString()
       .substring(2, 10)
       .replaceAll('.', ',');

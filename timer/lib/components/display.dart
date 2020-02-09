@@ -28,7 +28,7 @@ class _DisplayState extends State<Display> {
   }
 
   getTimerContent() {
-    return formatToTimerString(stopwatch);
+    return formatToTimerString(stopwatch.elapsedMilliseconds);
   }
 
   @override

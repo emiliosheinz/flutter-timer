@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   final String title;
   final Color color;
+  final Function onPress;
 
-  Button({@required this.title, @required this.color});
+  Button({
+    @required this.title,
+    @required this.color,
+    @required this.onPress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,9 @@ class Button extends StatelessWidget {
             color: color,
           ),
           child: InkWell(
+            onTap: () {
+              onPress();
+            },
             child: Center(
               child: Text(
                 title,
