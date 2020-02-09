@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   renderSavedTimers() {
-    var counter = saves.length;
+    var counter = saves.length + 1;
     return Column(
       children: saves.map((time) {
         counter--;
