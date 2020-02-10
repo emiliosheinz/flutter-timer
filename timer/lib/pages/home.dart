@@ -9,10 +9,13 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   Stopwatch stopwatch = new Stopwatch();
   bool isRunning = false;
   List saves = <String>[];
+
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   start() {
     stopwatch.start();
@@ -32,9 +35,19 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       saves = [formatToTimerString(stopwatch.elapsedMilliseconds), ...saves];
     });
+    _listKey.currentState.insertItem(0);
   }
 
   restart() {
+    for (var i = 0; i <= saves.length - 1; i++) {
+      _listKey.currentState.removeItem(0, (
+        BuildContext context,
+        Animation<double> animation,
+      ) {
+        return Container();
+      });
+    }
+
     stopwatch.reset();
     setState(() {
       isRunning = false;
@@ -75,12 +88,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   renderSavedTimers() {
-    var counter = saves.length + 1;
-    return Column(
-      children: saves.map((time) {
-        counter--;
-        return SavedTime(time: time, index: counter);
-      }).toList(),
+    return AnimatedList(
+      key: _listKey,
+      initialItemCount: 0,
+      itemBuilder: (contex, index, animation) {
+        return SizeTransition(
+          sizeFactor: animation,
+          child: SavedTime(
+            time: saves[index],
+            index: saves.length - index,
+          ),
+        );
+      },
     );
   }
 
@@ -106,9 +125,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(top: 20),
-                  child: SingleChildScrollView(
-                    child: renderSavedTimers(),
-                  ),
+                  child: renderSavedTimers(),
                 ),
               )
             ],
