@@ -29,18 +29,24 @@ class Button extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: color,
           ),
-          child: InkWell(
-            onTap: () {
-              onPress();
-            },
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 0.7),
-                  fontSize: 18,
+          child: Material(
+            color: color,
+            borderRadius: BorderRadius.all(Radius.circular(40)),
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(40)),
+              splashColor: Color.fromRGBO(255, 255, 255, 0.3),
+              highlightColor: Color.fromRGBO(255, 255, 255, 0.3),
+              onTap: () {
+                onPress();
+              },
+              child: Center(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Color.fromRGBO(255, 255, 255, 0.7),
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
