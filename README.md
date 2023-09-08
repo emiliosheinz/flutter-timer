@@ -9,6 +9,3 @@ WIP
 - Flutter
 - Dart
 - Flutter Stopwatch
-
-## :man: Contributors
-- @emilioheinz
